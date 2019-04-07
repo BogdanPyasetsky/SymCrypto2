@@ -19,26 +19,64 @@ namespace SymCrypto2
             Text key4 = new Text("быть");
             Text key5 = new Text("котом");
             Text key13 = new Text("экстерминатус");
+            double IoC_2, IoC_3, IoC_4, IoC_5, IoC_13;
+            double IoC_OT = OT.IoC();
+            Console.WriteLine("Index of Coincedence : " + IoC_OT);
             Text ET = new Text(text.Length);
+            
+
             ET = OT.Encrypt(key2);
             text_to_file = ET.GetString();
             File.WriteAllText("key-2.txt", text_to_file);
+            Console.WriteLine("Encrypted Text with keylength 2");
+            IoC_2 = ET.IoC_small(2); Console.WriteLine("Index of Coincedence for keylength 2 : " + IoC_2);
+            IoC_3 = ET.IoC_small(3); Console.WriteLine("Index of Coincedence for keylength 3 : " + IoC_3);
+            IoC_4 = ET.IoC_small(4); Console.WriteLine("Index of Coincedence for keylength 4 : " + IoC_4); 
+            IoC_5 = ET.IoC_small(5); Console.WriteLine("Index of Coincedence for keylength 5 : " + IoC_5);
+            Console.WriteLine(); Console.WriteLine();
+
             ET = OT.Encrypt(key3);
             text_to_file = ET.GetString();
             File.WriteAllText("key-3.txt", text_to_file);
+            Console.WriteLine("Encrypted Text with keylength 3");
+            IoC_2 = ET.IoC_small(2); Console.WriteLine("Index of Coincedence for keylength 2 : " + IoC_2);
+            IoC_3 = ET.IoC_small(3); Console.WriteLine("Index of Coincedence for keylength 3 : " + IoC_3);
+            IoC_4 = ET.IoC_small(4); Console.WriteLine("Index of Coincedence for keylength 4 : " + IoC_4);
+            IoC_5 = ET.IoC_small(5); Console.WriteLine("Index of Coincedence for keylength 5 : " + IoC_5);
+            Console.WriteLine(); Console.WriteLine();
+            
             ET = OT.Encrypt(key4);
             text_to_file = ET.GetString();
             File.WriteAllText("key-4.txt", text_to_file);
+            Console.WriteLine("Encrypted Text with keylength 4");
+            IoC_2 = ET.IoC_small(2); Console.WriteLine("Index of Coincedence for keylength 2 : " + IoC_2);
+            IoC_3 = ET.IoC_small(3); Console.WriteLine("Index of Coincedence for keylength 3 : " + IoC_3);
+            IoC_4 = ET.IoC_small(4); Console.WriteLine("Index of Coincedence for keylength 4 : " + IoC_4);
+            IoC_5 = ET.IoC_small(5); Console.WriteLine("Index of Coincedence for keylength 5 : " + IoC_5);
+            Console.WriteLine(); Console.WriteLine();
+
             ET = OT.Encrypt(key5);
             text_to_file = ET.GetString();
             File.WriteAllText("key-5.txt", text_to_file);
+            Console.WriteLine("Encrypted Text with keylength 5");
+            IoC_2 = ET.IoC_small(2); Console.WriteLine("Index of Coincedence for keylength 2 : " + IoC_2);
+            IoC_3 = ET.IoC_small(3); Console.WriteLine("Index of Coincedence for keylength 3 : " + IoC_3);
+            IoC_4 = ET.IoC_small(4); Console.WriteLine("Index of Coincedence for keylength 4 : " + IoC_4);
+            IoC_5 = ET.IoC_small(5); Console.WriteLine("Index of Coincedence for keylength 5 : " + IoC_5);
+            Console.WriteLine(); Console.WriteLine();
+
             ET = OT.Encrypt(key13);
             text_to_file = ET.GetString();
             File.WriteAllText("key-13.txt", text_to_file);
+            Console.WriteLine("Encrypted Text with keylength 13");
+            IoC_2 = ET.IoC_small(2); Console.WriteLine("Index of Coincedence for keylength 2 : " + IoC_2);
+            IoC_3 = ET.IoC_small(3); Console.WriteLine("Index of Coincedence for keylength 3 : " + IoC_3);
+            IoC_4 = ET.IoC_small(4); Console.WriteLine("Index of Coincedence for keylength 4 : " + IoC_4);
+            IoC_5 = ET.IoC_small(5); Console.WriteLine("Index of Coincedence for keylength 5 : " + IoC_5);
+            Console.WriteLine(); Console.WriteLine();
 
 
-
-
+    
             Console.WriteLine("Finished");
             Console.ReadKey();
         }

@@ -96,5 +96,47 @@ namespace SymCrypto2
             }
             return res;
         }
+
+        public double IoC()
+        {
+            var n = word.Length;
+            double res = 1.0 / (n * (n - 1));
+            int sum = 0;
+            int[] char_counter = new int[32];
+            for (int i = 0; i < n; i++)
+                for (int k = 0; k < 32; k++)
+                    if (word[i] == k)
+                        char_counter[k]++;
+            for (int k = 0; k < 32; k++)
+            {
+                sum += char_counter[k] * (char_counter[k] - 1);
+                //Console.WriteLine(k + "  " + char_counter[k]);
+            }
+            res = res * sum;
+            return res;
+        }
+
+        public double IoC_small(int R)
+        {
+            int n;
+            if (word.Length % R == 0)
+                n = word.Length / R;
+            else
+                n = (word.Length / R) + 1;
+            double res = 1.0 / (n * (n - 1));
+            int sum = 0;
+            int[] char_counter = new int[32];
+            for (int i = 0; i < n; i++)
+                for (int k = 0; k < 32; k++)
+                    if (word[i * R] == k)
+                        char_counter[k]++;
+            for (int k = 0; k < 32; k++)
+            {
+                sum += char_counter[k] * (char_counter[k] - 1);
+                //Console.WriteLine(k + "  " + char_counter[k]);
+            }
+            res = res * sum;
+            return res;
+        }
     }
 }
