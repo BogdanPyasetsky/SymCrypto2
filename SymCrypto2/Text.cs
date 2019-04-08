@@ -26,6 +26,15 @@ namespace SymCrypto2
             return res;
         }
 
+        static int ModSub(int a, int b)
+        {
+            var res = a - b;
+           
+            if (res < 0)
+                res += 32;
+            return res;
+        }
+
         private int[] word;
 
         private int Convert(char a)
@@ -68,7 +77,15 @@ namespace SymCrypto2
         {
             Text res = new Text(word.Length);
             for (int i = 0; i < word.Length; i++)
-                res.word[i] = ModAdd(word[i], k.word[Mod(i, 2)]);
+                res.word[i] = ModAdd(word[i], k.word[Mod(i, k.word.Length)]);
+            return res;
+        }
+
+        public Text Decrypt(Text k)
+        {
+            Text res = new Text(word.Length);
+            for (int i = 0; i < word.Length; i++)
+                res.word[i] = ModSub(word[i], k.word[Mod(i, k.word.Length)]);
             return res;
         }
 
@@ -80,7 +97,7 @@ namespace SymCrypto2
                 temp = ReConvert(word[i]);
                 //Console.Write(word[i] + "  ");
                 //Console.Write(temp + "  ");
-                Console.Write(temp + "(" + word[i] + ")" +"  ");
+                Console.Write(temp);// + "(" + word[i] + ")" +"  ");
             }
             Console.WriteLine();
         }
@@ -97,6 +114,7 @@ namespace SymCrypto2
             return res;
         }
 
+        /*
         public double IoC()
         {
             var n = word.Length;
@@ -115,7 +133,8 @@ namespace SymCrypto2
             res = res * sum;
             return res;
         }
-
+        */
+        
         public double IoC_small(int R)
         {
             int n;
@@ -137,6 +156,59 @@ namespace SymCrypto2
             }
             res = res * sum;
             return res;
+        }
+
+        public Text FindKey()
+        {
+            double ioc_id = 0.0553;
+            double ioc_cur;
+            int key_length = 1;
+            do
+            {
+                key_length++;
+                ioc_cur = IoC_small(key_length);
+                //Console.WriteLine(ioc_cur);
+            }
+            while ((ioc_id - ioc_cur > 0.005) && (ioc_cur < ioc_id));
+
+            Text key = new Text(key_length);
+
+            int max, tp;
+            int[] n = new int[key_length];
+            int f1 = word.Length / key_length;
+            int f2 = word.Length - f1 * key_length; ;
+            if (f2 != 0)
+                for (int i = 0; i < f2; i++)
+                    n[i] = f1 + 1;
+            for (int i = f2; i < key_length; i++)
+                n[i] = f1;
+            int[] char_counter = new int[32];
+
+            for (int t = 0; t < key_length; t++)
+            {
+                for (int i = 0; i < n[t]; i++)
+                    for (int k = 0; k < 32; k++)
+                        if (word[i * key_length + t] == k)
+                            char_counter[k]++;
+                max = char_counter.Max();
+                for (int k = 0; k < 32; k++)
+                {
+                    if (char_counter[k] == max)
+                        key.word[t] = ModSub(k, 13);
+                    //Console.Write(char_counter[k] + "  ");
+                    char_counter[k] = 0;
+                }
+                //Console.WriteLine();
+
+                
+
+
+
+
+            }
+
+
+            return key;
         }
     }
 }
